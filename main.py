@@ -894,10 +894,10 @@ update_buttons=[
 async def callback_query(client: Client, query: CallbackQuery):
     if query.data=="update":
             global stoptimer
-            dt1 = datetime.now(sl)
-            dt4 = dt1.strftime(fmt)
-            dt2 = datetime(2022,12,5,00,00,00)
-            dt3 = int((dt2 - dt4).total_seconds())
+            
+            dt1 = datetime(2022,12,5,00,00,00,000000,tzinfo=ZoneInfo('Asia/Kolkata'))
+            dt2 = datetime.now(pytz.timezone('Asia/Kolkata'))
+            dt3 = int((dt1 - dt2).total_seconds())
             user_input_time = dt3
             user_input_event = str("🔥🔥උසස් පෙළ විභාගයට තව🔥🔥")
             if user_input_time>0:
