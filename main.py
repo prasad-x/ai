@@ -14,7 +14,7 @@ import time
 import pytz
 
 sl = pytz.timezone("Asia/Colombo") 
-
+fmt='%Y-%m-%d %H:%M:%S'
 
 
 bot = Client(
@@ -894,7 +894,8 @@ update_buttons=[
 async def callback_query(client: Client, query: CallbackQuery):
     if query.data=="update":
             global stoptimer
-            dt1 = datetime.now()
+            dt1 = datetime.now(sl)
+            dt1 = dt1.strftime(fmt)
             dt2 = datetime(2022,12,5,00,00,00)
             dt3 = int((dt2 - dt1).total_seconds())
             user_input_time = dt3
