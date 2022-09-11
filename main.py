@@ -9,7 +9,11 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQ
 from pyrogram.types import ChatPermissions
 from pyrogram.errors import MessageNotModified
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultArticle, InputTextMessageContent
+import os
+import time
 
+os.environ["TZ"] = "Asia/Colombo"
+time.tzset()
 
 
 bot = Client(
