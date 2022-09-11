@@ -885,11 +885,11 @@ def start(bot, message):
     )
 
 time_buttons=[
-    [InlineKeyboardButton('A/l Count down timer',callback_data='update')]
+    [InlineKeyboardButton('A/l Count down timer',callback_data='update')],
 ]
 update_buttons=[
-    [InlineKeyboardButton('UPDATE TIME',callback_data="update")]
-    [InlineKeyboardButton('BOT',url="http://t.me/PrasadAssistantrobot"]
+    [InlineKeyboardButton('UPDATE TIME',callback_data="update")],
+    [InlineKeyboardButton('BOT',url="http://t.me/PrasadAssistantrobot"],
 ]    
 
 @bot.on_callback_query()
