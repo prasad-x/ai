@@ -1,6 +1,8 @@
-
+import asyncio
+from turtle import update
+from telethon import TelegramClient, events
 from re import I
-import datetime
+from datetime import datetime
 from tokenize import group
 from pyrogram import Client, filters
 from pyrogram.errors import FloodWait
@@ -18,6 +20,7 @@ bot = Client(
     bot_token="5686358544:AAEVjOdtUgfzj7QM7E-D78E7RzBcXcPjypg"
     
 )
+
 
 
 
@@ -853,7 +856,7 @@ EC0005_BUTTONS=[
     [InlineKeyboardButton('SUBJECT MENU',callback_data='A0001'),InlineKeyboardButton('START MENU',callback_data='MAIN')],
     [InlineKeyboardButton('❌CLOSE❌',callback_data='CLOSE')],
 ]
-EC0006_TEXT='asdf'
+EC0006_TEXT=''
 
 
 @bot.on_message(filters.regex('start')) #start
@@ -866,7 +869,57 @@ def start(bot, message):
         disable_web_page_preview=True
     )
 
+@bot.on_message(filters.regex('al')) #start
+def start(bot, message):
+    text = 'Count down timer'
+    reply_markup = InlineKeyboardMarkup(time_buttons)
+    message.reply(
+        text=text,
+        reply_markup=reply_markup,
+        disable_web_page_preview=True
+    )
+
+time_buttons=[
+    [InlineKeyboardButton('A/l Count down timer',callback_data='update')]
+]
+update_buttons=[
+    [InlineKeyboardButton('UPDATE TIME',callback_data="update")]
+]    
+
 @bot.on_callback_query()
+async def callback_query(client: Client, query: CallbackQuery):
+    if query.data=="update":
+            global stoptimer
+            dt1 = datetime.now()
+            dt2 = datetime(2022,12,5,00,00,00)
+            dt3 = int((dt2 - dt1).total_seconds())
+            user_input_time = dt3
+            user_input_event = str("🔥🔥උසස් පෙළ විභාගයට තව🔥🔥")
+            if user_input_time>0:
+                if user_input_time>0 and user_input_time!=0:
+                    d=user_input_time//(3600*24)
+                    h=user_input_time%(3600*24)//3600
+                    m=user_input_time%3600//60
+                    s=user_input_time%60
+                    Countdown_TeLe_TiPs='{}\n\n⏳ **දින** {:02d}**යි**  **පැය** {:02d}**යි** **මිනිත්තු** {:02d}**යි**  **තත්පර** {:02d}**ක** කාලයක් තිබෙයි.\n\n@PrasadAssistantbot'.format(user_input_event, d, h, m, s)
+                    update_text=str(Countdown_TeLe_TiPs)
+                    reply_markup = InlineKeyboardMarkup(update_buttons)
+                    try:
+                        await query.edit_message_text(
+                            update_text,
+                            reply_markup=reply_markup
+                        )
+                    except MessageNotModified:
+                        pass
+
+                
+
+
+
+
+
+
+
 async def callback_query(client: Client, query: CallbackQuery):
     if query.data=="A0001":
         reply_markup = InlineKeyboardMarkup(A0001_BUTTONS)
@@ -1313,7 +1366,7 @@ async def callback_query(client: Client, query: CallbackQuery):
                 
 
 
-@bot.on_inline_query(filters.private)
+@bot.on_inline_query()
 def inline_query(client, inline_query):
     inline_query.answer(
         results=[
@@ -1326,21 +1379,14 @@ def inline_query(client, inline_query):
                 reply_markup=InlineKeyboardMarkup(START_BUTTONS)
             ),
             InlineQueryResultArticle(
-                title="ICT A/L PAST PAPERS",
-                description="🔥2011-2020 ICT පසුගිය ප්‍රශ්නපත්‍ර🔥",
+                title="Count Down",
+                description="🔥උසස් පෙළ විභාගයට තව🔥",
                 input_message_content=InputTextMessageContent(
-                    "🔥2011-2020 ICT පසුගිය ප්‍රශ්නපත්‍ර🔥\n\n⭕️⭕️All Credits Goes To Rightful Owners. No Copyright Infringement Intended.⭕️⭕️"
+                    "🔥උසස් පෙළ විභාගයට තව🔥"
                 ),
-                reply_markup=InlineKeyboardMarkup(A0022_BUTTONS)
+                reply_markup=InlineKeyboardMarkup(update_buttons)
             ),
-            InlineQueryResultArticle(
-                title="ICT A/L MARKINGS",
-                description="🔥2011-2020 ICT පිලිතුරුපත්‍ර🔥",
-                input_message_content=InputTextMessageContent(
-                    "🔥2011-2020 ICT පිලිතුරුපත්‍ර🔥\n\n⭕️⭕️All Credits Goes To Rightful Owners. No Copyright Infringement Intended.⭕️⭕️"
-                ),
-                reply_markup=InlineKeyboardMarkup(A0023_BUTTONS)
-            ),
+            
         ],
         cache_time=1
     )
