@@ -11,9 +11,10 @@ from pyrogram.errors import MessageNotModified
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultArticle, InputTextMessageContent
 import os
 import time
+import pytz
 
-os.environ["TZ"] = "Asia/Colombo"
-time.tzset()
+sl = pytz.timezone("Asia/Colombo") 
+
 
 
 bot = Client(
@@ -893,7 +894,7 @@ update_buttons=[
 async def callback_query(client: Client, query: CallbackQuery):
     if query.data=="update":
             global stoptimer
-            dt1 = datetime.now()
+            dt1 = datetime.now(sl)
             dt2 = datetime(2022,12,5,00,00,00)
             dt3 = int((dt2 - dt1).total_seconds())
             user_input_time = dt3
