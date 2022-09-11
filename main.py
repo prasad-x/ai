@@ -853,10 +853,10 @@ EC0005_BUTTONS=[
     [InlineKeyboardButton('SUBJECT MENU',callback_data='A0001'),InlineKeyboardButton('START MENU',callback_data='MAIN')],
     [InlineKeyboardButton('❌CLOSE❌',callback_data='CLOSE')],
 ]
-EC0006_TEXT=''
+EC0006_TEXT='asdf'
 
 
-@bot.on_message(filters.regex('menu')) #start
+@bot.on_message(filters.regex('start')) #start
 def start(bot, message):
     text = START_MESSAGE
     reply_markup = InlineKeyboardMarkup(START_BUTTONS)
