@@ -5,3 +5,4 @@ TgCrypto==1.2.3
 Telethon==1.25.0
 pytz
 tzdata==2022.2
+backports-zoneinfo
