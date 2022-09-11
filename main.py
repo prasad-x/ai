@@ -1,4 +1,4 @@
-from telethon import TelegramClient, events
+
 from re import I
 import datetime
 from tokenize import group
@@ -20,14 +20,6 @@ bot = Client(
 )
 
 
-@bot.on_message(filters.regex('menu')) 
-async def time(event):
-    # Get the sender of the message
-    sender = await event.get_sender()
-    SENDER = sender.id
-    # Define the text and send the message
-    text = "Received! Day and time: " + str(datetime.datetime.now())
-    await bot.send_message(SENDER, text, parse_mode="HTML")
 
     
 
