@@ -1,5 +1,4 @@
 import asyncio
-from turtle import update
 from telethon import TelegramClient, events
 from re import I
 from datetime import datetime
