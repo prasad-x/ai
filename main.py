@@ -91,7 +91,7 @@ IT010_TEXT='2020 ප්‍රශ්න පත්‍ර සාකච්ඡාව\
 
 START_BUTTONS=[
     [InlineKeyboardButton('ENTER SUBJECT MENU',callback_data='A0001')],
-    [InlineKeyboardButton('A/l Count down',callback_data='update')]
+    [InlineKeyboardButton('A/l Count down',callback_data='update')],
     [InlineKeyboardButton('OWNER',url='https://t.me/PUBUDUPRASAD')],
     [InlineKeyboardButton('❌CLOSE❌',callback_data='CLOSE')],
 ]
