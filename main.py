@@ -883,7 +883,6 @@ time_buttons=[
 update_buttons=[
     [InlineKeyboardButton('UPDATE TIME',callback_data="update")],
     [InlineKeyboardButton('BOT',url="http://t.me/PrasadAssistantbot")],
-    [InlineKeyboardButton('❌CLOSE❌',callback_data='CLOSE')],
 ]    
 
 @bot.on_callback_query()
