@@ -894,7 +894,17 @@ update_buttons=[
 
 @bot.on_callback_query()
 async def callback_query(client: Client, query: CallbackQuery):
-    if query.data=="update":
+    if query.data=="A0001":
+        reply_markup = InlineKeyboardMarkup(A0001_BUTTONS)
+        try:
+            await query.edit_message_text(
+                A0001_TEXT,
+                reply_markup=reply_markup
+            )
+        except MessageNotModified:
+            pass
+
+    ekif query.data=="update":
             global stoptimer
             
             dt1 = datetime(2022,12,5,00,00,00,000000,tzinfo=ZoneInfo('Asia/Kolkata'))
@@ -908,7 +918,7 @@ async def callback_query(client: Client, query: CallbackQuery):
                     h=user_input_time%(3600*24)//3600
                     m=user_input_time%3600//60
                     s=user_input_time%60
-                    Countdown_TeLe_TiPs='{}\n\n⏳ **දින** {:02d}**යි**  **පැය** {:02d}**යි** **මිනිත්තු** {:02d}**යි**  **තත්පර** {:02d}**ක** කාලයක් තිබෙයි.\n\n@PrasadAssistantbot'.format(user_input_event, d, h, m, s)
+                    Countdown_TeLe_TiPs='{}\n\n⏳ **දින** {:02d}**යි**  **පැය** {:02d}**යි** **මිනිත්තු** {:02d}**යි**  **තත්පර** {:02d}**ක** කාලයක් තිබෙයි.\n\n@ictquizgroupbot'.format(user_input_event, d, h, m, s)
                     update_text=str(Countdown_TeLe_TiPs)
                     reply_markup = InlineKeyboardMarkup(update_buttons)
                     try:
@@ -918,27 +928,6 @@ async def callback_query(client: Client, query: CallbackQuery):
                         )
                     except MessageNotModified:
                         pass
-
-                
-
-
-
-
-
-
-
-async def callback_query(client: Client, query: CallbackQuery):
-    if query.data=="A0001":
-        reply_markup = InlineKeyboardMarkup(A0001_BUTTONS)
-        try:
-            await query.edit_message_text(
-                A0001_TEXT,
-                reply_markup=reply_markup
-            )
-        except MessageNotModified:
-            pass
-
-
 
     
 
