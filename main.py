@@ -21,8 +21,7 @@ bot = Client(
     'all subject bot',
     api_id=7009965,
     api_hash="06651b174c4f0591deb0ed1e5663c996",
-    bot_token="5588260712:AAFcsTknnPMaE1Zq6OrYtDqMntcjDAcLtpI",
-    session_string='BQBq9q0AXHK7jqQ-ul6mFvcdzPQP1skfsvCNtgDzGYMyHsy1p_XMXnB3nvlIxwHZ1Kayf_q_e5aW92Si105F239OaFXoQbhRe34GW-Fwirvu8vRbpw-SAdTjqjcOVN7dMMKIIFwZ69EHMYclvbuZa3hrg4QtxBCDYLyoNIv3Rhu1KFVlGMDR9ROXvehDNIal82snqft_YGxmS8N5DMXK6enNAR8wCyWz4kdVFVbVAmpgNMiK0ma9EgwY4I3vLJ0pM1HLyMtYA82W3FkpTbfGmeJ_eqsffhs5uaASn8uNlJvbnNRGE5SFc74qMaN-wgO70y3mP0qb84TsBVWXPtQKUzWBRneadQAAAABT1rG5AA',
+    bot_token="5538996149:AAFE3XRqcFp9p6bdgGE8Ga2zMcF4AgioCTk",
     
 )
 
