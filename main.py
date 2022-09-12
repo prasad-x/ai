@@ -91,6 +91,7 @@ IT010_TEXT='2020 ප්‍රශ්න පත්‍ර සාකච්ඡාව\
 
 START_BUTTONS=[
     [InlineKeyboardButton('ENTER SUBJECT MENU',callback_data='A0001')],
+    [InlineKeyboardButton('A/l Count down',callback_data='update')]
     [InlineKeyboardButton('OWNER',url='https://t.me/PUBUDUPRASAD')],
     [InlineKeyboardButton('❌CLOSE❌',callback_data='CLOSE')],
 ]
@@ -882,6 +883,7 @@ time_buttons=[
 update_buttons=[
     [InlineKeyboardButton('UPDATE TIME',callback_data="update")],
     [InlineKeyboardButton('BOT',url="http://t.me/PrasadAssistantbot")],
+    [InlineKeyboardButton('❌CLOSE❌',callback_data='CLOSE')],
 ]    
 
 @bot.on_callback_query()
