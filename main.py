@@ -155,6 +155,7 @@ EC0001_BUTTONS=[
 A0010_BUTTONS=[
     [InlineKeyboardButton('පසුගිය ප්‍රශ්නපත්‍ර',callback_data='A0022')],
     [InlineKeyboardButton('පසුගිය ප්‍රශ්නපත්‍ර වල පිලිතුරු',callback_data='A0023')],
+    [InlineKeyboardButton('MODEL PAPERS',callback_data='model')],
     [InlineKeyboardButton('2010-2020 MCQ විවරණ',callback_data='A0024')],
     [InlineKeyboardButton('පසුගිය ප්‍රශ්නපත්‍ර(ONLINE TESTS)',callback_data='A0025')],
     [InlineKeyboardButton('පලාත් ප්‍රශ්නපත්‍ර',callback_data='A0026')],
