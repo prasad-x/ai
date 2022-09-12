@@ -1099,7 +1099,7 @@ async def callback_query(client: Client, query: CallbackQuery):
             pass
 
     elif query.data=='model':
-        reply_markup=InlineKeyboardButton(model_buttons)
+        reply_markup=InlineKeyboardMarkup(model_buttons)
         try:
             await query.edit_message_text(
                 model_text,
