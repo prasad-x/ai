@@ -1,6 +1,5 @@
 import asyncio
 from backports.zoneinfo import ZoneInfo
-from telethon import TelegramClient, events
 from re import I
 from datetime import datetime
 from tokenize import group
