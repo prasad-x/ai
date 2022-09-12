@@ -173,6 +173,19 @@ A0011_BUTTONS=[
     [InlineKeyboardButton('❌CLOSE❌',callback_data='CLOSE')],
 ]
 
+model_buttons=[
+    [InlineKeyboardButton('Model paper 02',url='https://t.me/c/1563625707/32'),InlineKeyboardButton('Model paper 03',url='https://t.me/c/1563625707/33')],
+    [InlineKeyboardButton('Model paper 05',url='https://t.me/c/1563625707/2'),InlineKeyboardButton('Model paper 06',url='https://t.me/c/1563625707/4')],
+    [InlineKeyboardButton('Model paper 07',url='https://t.me/c/1563625707/6'),InlineKeyboardButton('Model paper 08',url='https://t.me/c/1563625707/8')],
+    [InlineKeyboardButton('Model paper 09',url='https://t.me/c/1563625707/10'),InlineKeyboardButton('Model paper 10',url='https://t.me/c/1563625707/12')],
+    [InlineKeyboardButton('Model paper 11',url='https://t.me/c/1563625707/14'),InlineKeyboardButton('Model paper 12',url='https://t.me/c/1563625707/18')],
+    [InlineKeyboardButton('Model paper 13',url='https://t.me/c/1563625707/22'),InlineKeyboardButton('Model paper 14',url='https://t.me/c/1563625707/30')],
+    [InlineKeyboardButton('⬅️BACK',callback_data='A0010'),InlineKeyboardButton('SUBJECT MENU',callback_data='A0004')],
+    [InlineKeyboardButton('START MENU',callback_data='A0001')],
+    [InlineKeyboardButton('❌CLOSE❌',callback_data='CLOSE')],
+]
+model_text='2021 Model papers'
+
 
 A0022_BUTTONS=[
     [InlineKeyboardButton('2011 ප්‍රශ්නපත්‍රය',url='https://t.me/ictstudenthelper/94'),InlineKeyboardButton('2012 ප්‍රශ්නපත්‍රය',url='https://t.me/ictstudenthelper/96')],
@@ -1084,6 +1097,18 @@ async def callback_query(client: Client, query: CallbackQuery):
         except MessageNotModified:
             pass
 
+    elif query.data=='model':
+        reply_markup=InlineKeyboardButton(model_buttons)
+        try:
+            await query.edit_message_text(
+                model_text,
+                reply_markup=reply_markup
+            )
+        except MessageNotModified:
+            pass
+        
+        
+        
     elif query.data=='IT003':
         reply_markup=InlineKeyboardMarkup(IT003_BUTTONS)
         try:
