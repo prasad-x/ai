@@ -896,7 +896,7 @@ async def callback_query(client: Client, query: CallbackQuery):
         except MessageNotModified:
             pass
 
-    ekif query.data=="update":
+    elif query.data=="update":
             global stoptimer
             
             dt1 = datetime(2022,12,5,00,00,00,000000,tzinfo=ZoneInfo('Asia/Kolkata'))
