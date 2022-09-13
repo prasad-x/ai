@@ -924,7 +924,7 @@ async def callback_query(client: Client, query: CallbackQuery):
                     h=user_input_time%(3600*24)//3600
                     m=user_input_time%3600//60
                     s=user_input_time%60
-                    Countdown_TeLe_TiPs='{}\n\n⏳ **දින** {:02d}**යි**  **පැය** {:02d}**යි** **මිනිත්තු** {:02d}**යි**  **තත්පර** {:02d}**ක** කාලයක් තිබෙයි.\n\n@ictquizgroupbot'.format(user_input_event, d, h, m, s)
+                    Countdown_TeLe_TiPs='{}\n\n⏳ **දින** {:02d}**යි**  **පැය** {:02d}**යි** **මිනිත්තු** {:02d}**යි**  **තත්පර** {:02d}**ක** කාලයක් තිබෙයි.\n\n@PrasadAssistantrobot'.format(user_input_event, d, h, m, s)
                     update_text=str(Countdown_TeLe_TiPs)
                     reply_markup = InlineKeyboardMarkup(update_buttons)
                     try:
