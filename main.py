@@ -174,6 +174,20 @@ A0011_BUTTONS=[
     [InlineKeyboardButton('❌CLOSE❌',callback_data='CLOSE')],
 ]
 
+B00003_TEXT='BIO Q & A BOOKS'
+
+B00003_BUTTONS=[
+    [InlineKeyboardButton('Unit 01 & 02',url='https://t.me/ictstudenthelper/655')],
+    [InlineKeyboardButton('Unit 03 & 04',url='https://t.me/ictstudenthelper/657')],
+    [InlineKeyboardButton('Unit 05',url='https://t.me/ictstudenthelper/659')],
+    [InlineKeyboardButton('Unit 06 & 07',url='https://t.me/ictstudenthelper/661')],
+    [InlineKeyboardButton('Unit 08',url='https://t.me/ictstudenthelper/663')],
+    [InlineKeyboardButton('Unit 09',url='https://t.me/ictstudenthelper/668')],
+    [InlineKeyboardButton('⬅️BACK',callback_data='B0001')],
+    [InlineKeyboardButton('SUBJECT MENU',callback_data='A0001'),InlineKeyboardButton('START MENU',callback_data='MAIN')],
+    [InlineKeyboardButton('❌CLOSE❌',callback_data='CLOSE')],
+]
+
 model_buttons=[
     [InlineKeyboardButton('Model paper 02',url='https://t.me/c/1563625707/32'),InlineKeyboardButton('Model paper 03',url='https://t.me/c/1563625707/33')],
     [InlineKeyboardButton('Model paper 05',url='https://t.me/c/1563625707/2'),InlineKeyboardButton('Model paper 06',url='https://t.me/c/1563625707/4')],
@@ -817,6 +831,7 @@ B00002_TEXT='build in progress🛠'
 E0001_BUTTONS=[
     [InlineKeyboardButton('පසුගිය ප්‍රශ්නපත්‍ර',callback_data='E0005')],
     [InlineKeyboardButton('පසුගිය ප්‍රශ්නපත්‍ර වල පිලිතුරු',callback_data='E0006')],
+    [InlineKeyboardButton('Q & A BOOKS',callback_data='B00003')],
     [InlineKeyboardButton('⬅️BACK',callback_data='A0008')],
     [InlineKeyboardButton('SUBJECT MENU',callback_data='A0001'),InlineKeyboardButton('START MENU',callback_data='MAIN')],
     [InlineKeyboardButton('❌CLOSE❌',callback_data='CLOSE')],
@@ -1006,6 +1021,17 @@ async def callback_query(client: Client, query: CallbackQuery):
             )
         except MessageNotModified:
             pass
+        
+    elif query.data=='B00003':
+        reply_markup=InlineKeyboardMarkup(B00003_BUTTONS)
+        try:
+            await query.edit_message_text(
+                B00003_TEXT,
+                reply_markup=reply_markup
+            )
+        except MessageNotModified:
+            pass
+
 
     elif query.data=='A0011':
         reply_markup=InlineKeyboardMarkup(A0011_BUTTONS)
