@@ -5,13 +5,16 @@ from datetime import datetime
 from tokenize import group
 from pyrogram import Client, filters
 from pyrogram.errors import FloodWait
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, input_message_content, user_and_chats ,ReplyKeyboardMarkup ,ReplyKeyboardRemove
+from pyrogram.types import Message , InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, input_message_content, user_and_chats ,ReplyKeyboardMarkup ,ReplyKeyboardRemove
 from pyrogram.types import ChatPermissions
 from pyrogram.errors import MessageNotModified
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultArticle, InputTextMessageContent
 import os
 import time
 import pytz
+from database.sql import add_user, query_msg, full_userbase
+from pyrogram.errors import FloodWait, UserIsBlocked, InputUserDeactivated
+
 
 sl = pytz.timezone("Asia/Colombo") 
 fmt='%Y-%m-%d %H:%M:%S'
@@ -21,7 +24,7 @@ bot = Client(
     'all subject bot',
     api_id=7009965,
     api_hash="06651b174c4f0591deb0ed1e5663c996",
-    bot_token="5538996149:AAFE3XRqcFp9p6bdgGE8Ga2zMcF4AgioCTk",
+    bot_token="5538996149:AAFE3XRqcFp9p6bdgGE8Ga2zMcF4AgioCTk"
     
 )
 
@@ -46,7 +49,7 @@ A0010_TEXT='ICT PAPERS'
 A0011_TEXT='ICT NOTES & OTHERS'
 A0022_TEXT='🔥2011-2020 ICT පසුගිය ප්‍රශ්නපත්‍ර🔥\n\n⭕️⭕️All Credits Goes To Rightful Owners. No Copyright Infringement Intended.⭕️⭕️'
 A0023_TEXT='🔥2011-2020 A/L ICT පිලිතුරුපත්‍ර 🔥\n\n⭕️⭕️All Credits Goes To Rightful Owners. No Copyright Infringement Intended.⭕️⭕️'
-A0024_TEXT='2011 සිට 2020 දක්වා ඇති සියලූම පසුගිය ප්‍රශ්න සදහා විවරණ📝\n (video සහ audio ලෙස)\n\n all credits goes to @ICTLibraryBot & @TechlogicLK'
+A0024_TEXT='2011 සිට 2020 දක්වා ඇති සියලූම පසුගිය ප්‍රශ්න සදහා විවරණ📝\n (video සහ audio ලෙස)\n\n all credits goes to @ICTLibrarybot & @TechlogicLK'
 A0025_TEXT='පසුගිය ප්‍රශ්නපත්‍ර(ONLINE TESTS)'
 A0026_TEXT='පලාත් ප්‍රශ්නපත්‍ර'
 A0027_TEXT='සියලුම පාඩම් වල නෝට්ස්'
@@ -89,9 +92,9 @@ IT010_TEXT='2020 ප්‍රශ්න පත්‍ර සාකච්ඡාව\
 
 
 START_BUTTONS=[
-    [InlineKeyboardButton('ENTER SUBJECT MENU',callback_data='A0001')],
-    [InlineKeyboardButton('A/l Count down',callback_data='update')],
-    [InlineKeyboardButton('OWNER',url='https://t.me/PUBUDUPRASAD')],
+    [InlineKeyboardButton('📛ENTER SUBJECT MENU📛',callback_data='A0001')],
+    [InlineKeyboardButton('A/l COUNT DOWN TIMER',callback_data='update')],
+    [InlineKeyboardButton('⚜️CONTACT OWNER',url='https://t.me/PUBUDUPRASAD')],
     [InlineKeyboardButton('❌CLOSE❌',callback_data='CLOSE')],
 ]
 # subject menu
@@ -741,7 +744,7 @@ PH0001_BUTTONS=[
     [InlineKeyboardButton('❌CLOSE❌',callback_data='CLOSE')],
 ]
 
-M0001_BOTTONS=[
+M0001_botTONS=[
     [InlineKeyboardButton('PAST PAPERS',callback_data='M0003'),InlineKeyboardButton('MARKINGS',callback_data='M0004')],
     [InlineKeyboardButton('⬅️BACK',callback_data='A0005'),InlineKeyboardButton('SUBJECT MENU',callback_data='A0001')],
     [InlineKeyboardButton('START MENU',callback_data='MAIN')],
@@ -913,8 +916,16 @@ E0006_BUTTONS=[
     [InlineKeyboardButton('SUBJECT MENU',callback_data='A0001'),InlineKeyboardButton('START MENU',callback_data='MAIN')],
     [InlineKeyboardButton('❌CLOSE❌',callback_data='CLOSE')],
 ]
-E0006_TEXT='build in progress🛠'
-
+E0006_TEXT='ET MARKINGS'
+E0006_BUTTONS=[
+    [InlineKeyboardButton('2015 පිලිතුරුපත්‍රය',url='https://t.me/ictstudenthelper/693'),InlineKeyboardButton('2016 පිලිතුරුපත්‍රය',url='https://t.me/ictstudenthelper/694')],
+    [InlineKeyboardButton('2017 පිලිතුරුපත්‍රය',url='https://t.me/ictstudenthelper/695'),InlineKeyboardButton('2018 පිලිතුරුපත්‍රය',url='https://t.me/ictstudenthelper/696')],
+    [InlineKeyboardButton('2019 පිලිතුරුපත්‍රය',url='https://t.me/ictstudenthelper/697')],
+    [InlineKeyboardButton('⬅️BACK',callback_data='E0001')],
+    [InlineKeyboardButton('SUBJECT MENU',callback_data='A0001'),InlineKeyboardButton('START MENU',callback_data='MAIN')],
+    [InlineKeyboardButton('❌CLOSE❌',callback_data='CLOSE')],
+    
+]
 S0001_TEXT='SFT PAPERS'
 S0001_BUTTONS=[
     [InlineKeyboardButton('පසුගිය ප්‍රශ්නපත්‍ර',callback_data='S0005')],
@@ -952,7 +963,7 @@ EC0005_BUTTONS=[
 EC0006_TEXT=''
 
 
-@bot.on_message(filters.regex('start')) #start
+@bot.on_message(filters.regex('start') & filters.private) #start
 def start(bot, message):
     text = START_MESSAGE
     reply_markup = InlineKeyboardMarkup(START_BUTTONS)
@@ -961,14 +972,67 @@ def start(bot, message):
         reply_markup=reply_markup,
         disable_web_page_preview=True
     )
+WAIT_MSG = """"<b>Processing ...</b>"""
+ADMINS=f"1256202333"
+@bot.on_message(filters.command('users') & filters.private & filters.user(ADMINS))
+async def get_users(client: bot, message: Message):
+    msg = await client.send_message(chat_id=message.chat.id, text=WAIT_MSG)
+    users = await full_userbase()
+    await msg.edit(f"{len(users)} users are using this bot")
 
+@bot.on_message(filters.private & filters.command('broadcast') & filters.user(ADMINS))
+async def send_text(client: bot, message: Message):
+    if message.reply_to_message:
+        query = await query_msg()
+        broadcast_msg = message.reply_to_message
+        total = 0
+        successful = 0
+        blocked = 0
+        deleted = 0
+        unsuccessful = 0
+        
+        pls_wait = await message.reply("<i>Broadcasting Message.. This will Take Some Time</i>")
+        for row in query:
+            chat_id = int(row[0])
+            try:
+                await broadcast_msg.copy(chat_id)
+                successful += 1
+            except FloodWait as e:
+                await asyncio.sleep(e.x)
+                await broadcast_msg.copy(chat_id)
+                successful += 1
+            except UserIsBlocked:
+                blocked += 1
+            except InputUserDeactivated:
+                deleted += 1
+            except:
+                unsuccessful += 1
+                pass
+            total += 1
+        
+        status = f"""<b><u>Broadcast Completed</u>
+
+Total Users: <code>{total}</code>
+Successful: <code>{successful}</code>
+Blocked Users: <code>{blocked}</code>
+Deleted Accounts: <code>{deleted}</code>
+Unsuccessful: <code>{unsuccessful}</code></b>"""
+        
+        return await pls_wait.edit(status)
+
+    else:
+        msg = await message.reply(REPLY_ERROR)
+        await asyncio.sleep(8)
+        await msg.delete()
+            
+REPLY_ERROR = "error"                
 
 
 time_buttons=[
-    [InlineKeyboardButton('A/l Count down timer',callback_data='update')]
+    [InlineKeyboardButton('A/l Count down timer',callback_data='update')],
 ]
 update_buttons=[
-    [InlineKeyboardButton('UPDATE TIME',callback_data="update")],
+    [InlineKeyboardButton('☘️ UPDATE TIME ☘️',callback_data="update")],
 ]    
 
 @bot.on_callback_query()
@@ -986,7 +1050,7 @@ async def callback_query(client: Client, query: CallbackQuery):
     elif query.data=="update":
             global stoptimer
             
-            dt1 = datetime(2022,12,5,00,00,00,000000,tzinfo=ZoneInfo('Asia/Kolkata'))
+            dt1 = datetime(2023,1,23,00,00,00,000000,tzinfo=ZoneInfo('Asia/Kolkata'))
             dt2 = datetime.now(pytz.timezone('Asia/Kolkata'))
             dt3 = int((dt1 - dt2).total_seconds())
             user_input_time = dt3
@@ -1285,7 +1349,7 @@ async def callback_query(client: Client, query: CallbackQuery):
             pass
 
     elif query.data=='M0001':
-        reply_markup=InlineKeyboardMarkup(M0001_BOTTONS)
+        reply_markup=InlineKeyboardMarkup(M0001_botTONS)
         try:
             await query.edit_message_text(
                 M0001_TEXT,
@@ -1508,6 +1572,7 @@ async def callback_query(client: Client, query: CallbackQuery):
             )
         except MessageNotModified:
             pass
+
         
 
 
@@ -1522,7 +1587,7 @@ def inline_query(client, inline_query):
     inline_query.answer(
         results=[
             InlineQueryResultArticle(
-                title="START BOT in this chat",
+                title="START bot in this chat",
                 description="⭕️GROUP MENU",
                 input_message_content=InputTextMessageContent(
                     "⭕️GROUP MENU⭕️ "
